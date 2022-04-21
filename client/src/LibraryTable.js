@@ -140,6 +140,8 @@ class LibraryTable extends Component {
                 selectedUser={this.props.selectedUser}
                 removeBook={this.removeBook}
                 requestBook={this.requestBook}
+                users={this.props.users}
+                userOptions={this.props.userOptions}
             />
             )
         })
@@ -159,7 +161,7 @@ class LibraryTable extends Component {
                     {BookElems}
                 </div>
                 <div className='addBook'>
-                    <AddBook libraryOptions={this.state.libraryOptions}/>
+                    <AddBook libraryOptions={this.state.libraryOptions} selectedLibrary={this.state.selectedLibrary}/>
                 </div>   
             </div>
         )

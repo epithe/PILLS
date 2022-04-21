@@ -99,8 +99,90 @@ pillsController.requestBook = (req, res, next) => {
 }
 
 pillsController.getRequests = (req, res, next) => {
-    const { option, user_id, library_id } = req.query;
-    
+    const option = req.query.option;
+    const user_id = Number(req.query['userid']);
+    console.log(option, user_id);
+    let sqlString;
+    let values = [`${user_id}`];
+    // get requests to owner_id
+    if (option === "incoming") {
+        sqlString = "SELECT * FROM books b INNER JOIN requests r ON b.book_id = r.book_id WHERE b.owner_id = $1"
+    }
+    else if (option === "outgoing") {
+        sqlString = "SELECT * FROM books b INNER JOIN requests r ON b.book_id = r.book_id WHERE r.user_id = $1"
+    }
+    db.query(sqlString, values)
+        .then((data) => {
+            if (!data.rows) {
+                console.log("error here")
+                return next({
+                    log: 'pillsController.getRequests',
+                    message: {err: 'Requests not found'}
+                })
+            }
+            res.locals.requestedBooks = data.rows;
+            return next()
+        })
+        .catch((e) => console.log(e));
+}
+
+pillsController.clearRequest = (req, res, next) => {
+    const { req_id } = req.body
+    const values = [`${req_id}`]
+    const sqlString = 'DELETE FROM requests WHERE req_id = $1'
+    db.query(sqlString, values)
+        .then(() => {
+            console.log("Request removed");
+            return next()
+        })
+        .catch(e => console.log(e))
+}
+
+pillsController.recommendBook = (req, res, next) => {
+    console.log(req.body);
+    const { book_id, rec_to, rec_by } = req.body;
+    const values = [`${book_id}`, `${rec_by}`, `${rec_to}`]
+    console.log(values)
+    const sqlString = "INSERT INTO recommendations (book_id, recd_by_id, recd_to_id) VALUES ($1, $2, $3)"
+    db.query(sqlString, values)
+        .then(() => {
+            console.log("Request received");
+            return next();
+        })
+        .catch(e => console.log(e));
+
+}
+
+pillsController.getRecommendations = (req, res, next) => {
+    console.log(req.body)
+    const userid = Number(req.query.userid)
+    const values = [`${userid}`]
+    const sqlString = "SELECT * FROM books b INNER JOIN recommendations r ON b.book_id = r.book_id WHERE r.recd_to_id = $1"
+    db.query(sqlString, values)
+        .then((data) => {
+            if (!data.rows) {
+                console.log("error here")
+                return next({
+                    log: 'pillsController.getRecommendations',
+                    message: {err: 'Recommendations not found'}
+                })
+            }
+            res.locals.recommendedBooks = data.rows;
+            return next()
+        })
+        .catch((e) => console.log(e));
+}
+
+pillsController.clearRecommendation = (req, res, next) => {
+    const { rec_id } = req.body
+    const values = [`${rec_id}`]
+    const sqlString = 'DELETE FROM recommendations WHERE rec_id = $1'
+    db.query(sqlString, values)
+        .then(() => {
+            console.log("Recommendation removed");
+            return next()
+        })
+        .catch(e => console.log(e))
 }
 
 module.exports = pillsController;

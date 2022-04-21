@@ -58,7 +58,8 @@ p {
 button {
   border-radius: 5px;
   background: transparent;
-  margin-left: 0.75rem;
+  margin-left: 0.25rem;
+  margin-right: 0.5rem;
   background-color: olive;
   color: white;
 }
@@ -78,7 +79,7 @@ button {
   padding: 1rem 3rem;
 }
 
-.bookCard {
+.card {
   color: rgb(15, 14, 14);
   display: flex;
   flex-direction: column;
@@ -99,4 +100,18 @@ button {
 .saveButton {
   margin-top: 1rem;
   margin-left: 0rem !important;
+}
+
+.selectUserRec {
+  margin-left: 0.5rem;
+  margin-top: 0rem;
+}
+
+.recUserSelect {
+  margin-top: 0rem;
+  margin-right: 0.5rem;
+}
+
+p .recUserSelectText {
+  margin-bottom: 0rem !important;
 }

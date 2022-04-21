@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import RequestPanel from "./Requests";
+import RecommendationsPanel from "./Recommendations";
 
 
 class App extends Component {
@@ -51,6 +52,7 @@ class App extends Component {
       })
     })
     
+    console.log(this.state.users)
     let value;
     userOptions.forEach((el) => {
       if (this.state.selectedUser.name === el[value]) value = this.state.selectedUser.name;
@@ -83,12 +85,14 @@ class App extends Component {
           </TabList>
 
           <TabPanel>
-            <LibraryTable libraryOptions={this.state.libraryOptions} selectedUser={this.state.selectedUser}/>
+            <LibraryTable libraryOptions={this.state.libraryOptions} selectedUser={this.state.selectedUser} userOptions={userOptions} users={this.state.users}/>
         </TabPanel>
         <TabPanel>
-            <RequestPanel selectedUser={this.state.selectedUser} />
+            <RequestPanel selectedUser={this.state.selectedUser} users={this.state.users}/>
         </TabPanel>
-        <TabPanel>Recommendations</TabPanel>
+        <TabPanel>
+            <RecommendationsPanel selectedUser={this.state.selectedUser} users={this.state.users}/>
+        </TabPanel>
         </Tabs>
       </>
     );

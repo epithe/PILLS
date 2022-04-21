@@ -10,8 +10,7 @@ const useInput = init => {
 
 const AddBook = (props) => {
     const { libraryOptions } = props;
-    // should get list of libraries from parent (LibraryTable)
-    // form with fields: Title, Author, Owner, Library(dropdown), Current Location, Notes
+    
     const [ title, titleOnChange ] = useInput('');
     const [ author, authorOnChange ] = useInput('');
     const [ library, setLibraryLabel ] = useState(libraryOptions[0].label);
@@ -36,6 +35,7 @@ const AddBook = (props) => {
             currLocation,
             notes
         };
+        // if (!currLocation) {currLocation = props.selectedLibrary.label}
         fetch('/api/addbook', {
             method: 'POST',
             headers: {
