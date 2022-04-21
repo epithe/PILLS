@@ -2,6 +2,23 @@ const db = require('./library_model');
 
 const pillsController = {};
 
+pillsController.getUsers = (req, res, next) => {
+    const sqlString = "SELECT * FROM users"
+    db.query(sqlString)
+        .then((data) => {
+            if (!data.rows) {
+                return next({
+                    log: 'pillsController.getUsers',
+                    message: {err: 'Users not found'}
+                })
+            }
+            res.locals.users = data.rows;
+            // console.log(res.locals.books)
+            return next()
+        })
+        .catch((e) => console.log(e));
+}
+
 pillsController.getLibraryList = (req, res, next) => {
     const sqlString = "SELECT * FROM libraries";
     db.query(sqlString)
@@ -63,6 +80,22 @@ pillsController.addBook = (req, res, next) => {
         })
         .catch(e => console.log(e))
     return next();
+}
+
+pillsController.requestBook = (req, res, next) => {
+    console.log(req.body);
+    const { book_id, library_id, selectedUser } = req.body;
+    const user_id = selectedUser['user_id'];
+    const values = [`${book_id}`, `${library_id}`, `${user_id}`]
+    console.log(values)
+    const sqlString = "INSERT INTO requests (book_id, library_id, user_id) VALUES ($1, $2, $3)"
+    db.query(sqlString, values)
+        .then(() => {
+            console.log("Request received");
+            return next();
+        })
+        .catch(e => console.log(e));
+
 }
 
 module.exports = pillsController;

@@ -38,6 +38,10 @@ Roadmap:
 Stretch: Req/Rec
 
     - Request and Recommendation components render from database
+        -
+        - Request button should take in selected user (user_id), library_id, book_id
+        - Sends post request to db which adds book to Requests table
+
     - Request and Reccomend buttons next to each book in library which send book to relevant req/rec list
 
 Stretch: Personalized homepage

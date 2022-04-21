@@ -17,6 +17,7 @@ class LibraryTable extends Component {
             },
         }
         this.removeBook = this.removeBook.bind(this);
+        this.requestBook = this.requestBook.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.getBooks = this.getBooks.bind(this);
     }
@@ -52,6 +53,23 @@ class LibraryTable extends Component {
             .catch(err => console.log('RemoveBook fetch /api/remove: ERROR: ', err))
     }
 
+    requestBook(book_id, library_id, selectedUser) {
+        const body = {
+            book_id,
+            library_id,
+            selectedUser
+        }
+        fetch('/api/requestBook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/JSON'
+            },
+            body: JSON.stringify(body)
+        })
+            .then(console.log("Request made"))
+            .catch(err => console.log("RequestBook fetch /api/requestBook: ERROR:", err));
+    }
+
     // Function to handle change in selected library
     handleChange(selectedLibrary) {
         fetch(`/api/?id=${selectedLibrary.value}`)
@@ -68,25 +86,30 @@ class LibraryTable extends Component {
             .catch(err => console.log('LibraryTable.componentDidMount: get books: ERROR: ', err));
     }
 
+    // Call database to get library options and add them to the state
     componentDidMount() {
-        // console.log("selected library_id", this.state.selectedLibrary);
-        // fetch(`/api/?id=${this.state.selectedLibrary.value}`)
-        //     .then((res) => res.json())
-        //     .then((books) => {
-        //     this.setState({
-        //         books: books,
-        //         fetchedBooks: true
-        //     });
-        //     })
-        //     .catch(err => console.log('LibraryTable.componentDidMount: get books: ERROR: ', err)); 
-        this.getBooks();
+        fetch('/api/libraries')
+            .then((res) => res.json())
+            .then((libraries) => {
+                let libraryOptionsArr = [];
+                libraries.forEach((el) => {
+                    libraryOptionsArr.push({
+                        value: el['library_id'],
+                        label: el.name
+                    })
+                })
+                return this.setState({
+                    libraryOptions: libraryOptionsArr,
+                }, () => {
+                    this.getBooks();
+                })
+            })
     }
 
 
 
     render() {
-        console.log("selected library in render", this.state.selectedLibrary)
-
+        // Errror checking for books
         if (!this.state.fetchedBooks) return (
             <div>
                 <h3>Loading books, please wait.</h3>
@@ -100,7 +123,8 @@ class LibraryTable extends Component {
         if (!books.length) return (
             <div>Sorry, no books here</div>
         )
-
+        
+        // Renders books to page
         const BookElems = books.map((book, i) => {
             return(
                 <BookRow
@@ -113,25 +137,29 @@ class LibraryTable extends Component {
                 selectedLibrary={this.state.selectedLibrary}
                 notes={book.notes}
                 libraryid={book.libraryid}
+                selectedUser={this.props.selectedUser}
                 removeBook={this.removeBook}
+                requestBook={this.requestBook}
             />
             )
         })
 
         return (
             <div className="library">
-                <div className="SelectLibrary">
+                <span className="SelectLibrary">
+                    <h4 className="librarySelectText">Select library:</h4>
                     <Select 
+                        className="librarySelect"
                         value={this.state.selectedLibrary}
                         onChange={this.handleChange}
-                        options={this.props.libraryOptions}
+                        options={this.state.libraryOptions}
                     />
-                </div>
+                </span>
                 <div className='bookElements'>
                     {BookElems}
                 </div>
                 <div className='addBook'>
-                    <AddBook libraryOptions={this.props.libraryOptions}/>
+                    <AddBook libraryOptions={this.state.libraryOptions}/>
                 </div>   
             </div>
         )

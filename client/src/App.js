@@ -1,42 +1,78 @@
 import React, { Component } from "react";
 import LibraryTable from './LibraryTable'
+import Select from 'react-select';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      libraryOptions: [],
+      users: [],
+      selectedUser: {}
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  // Handles changes in user select
+  handleChange(selectedUser) {
+    let userID = selectedUser.value;
+    console.log("userid", userID);
+    let currentUser = {};
+    console.log(this.state.users)
+    this.state.users.forEach((el) => {
+      if (el['user_id'] === userID) {
+        currentUser = el;
+      }
+    })
+    this.setState({
+      selectedUser: currentUser
+    })
+  }
+
+  // Fetches users from database
   componentDidMount() {
-    fetch('/api/libraries')
+    fetch('/api/users')
       .then((res) => res.json())
-      .then((libraries) => {
-          let libraryOptionsArr = [];
-          libraries.forEach((el) => {
-              libraryOptionsArr.push({
-                  value: el['library_id'],
-                  label: el.name
-              })
-          })
-          console.log("libraryoptions", libraryOptionsArr)
-          return this.setState({
-              libraryOptions: libraryOptionsArr,
-          })
-      })
+      .then((data) => this.setState({
+        users: data,
+        selectedUser: data[0],
+      }))
   }
 
   render() {
+    const userOptions = [];
+    this.state.users.forEach((el) => {
+      userOptions.push({
+        value: el['user_id'],
+        label: el.name
+      })
+    })
+    
+    let value;
+    userOptions.forEach((el) => {
+      if (this.state.selectedUser.name === el[value]) value = this.state.selectedUser.name;
+    })
+
     return (
       <>
+        <span className="userSelectLine">
+          <h4 className="userSelectText">Select user:</h4>
+          <Select 
+            className="userSelect" 
+            value={value}
+            options={userOptions} 
+            onChange={this.handleChange}
+          />
+        </span>
         <h1>
           P.I.L.L.S
         </h1>
-        <h2>
-          Podhorcer Inter-Library Loan System
-        </h2>
-        <LibraryTable libraryOptions={this.state.libraryOptions}/>
+        <div className="subtitle">
+          <h2>
+            Podhorcer Inter-Library Loan System
+          </h2>
+        </div>
+        <LibraryTable libraryOptions={this.state.libraryOptions} selectedUser={this.state.selectedUser}/>
       </>
     );
   }

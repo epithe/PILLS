@@ -4,6 +4,10 @@ const router = express.Router();
 
 const pillsController = require('./pillsController')
 
+router.get('/users', pillsController.getUsers, (req, res) => {
+    return res.status(200).json(res.locals.users)
+})
+
 router.get('/libraries', pillsController.getLibraryList, (req, res) => {
     return res.status(200).json(res.locals.libraries)
 })
@@ -17,6 +21,10 @@ router.post('/remove', pillsController.removeBook, (req, res) => {
 })
 
 router.post('/addbook', pillsController.addBook, (req, res) => {
+    return res.status(200)
+})
+
+router.post('/requestBook', pillsController.requestBook, (req, res) => {
     return res.status(200)
 })
 

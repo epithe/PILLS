@@ -10,7 +10,6 @@ const useInput = init => {
 
 const AddBook = (props) => {
     const { libraryOptions } = props;
-    console.log("addbook", libraryOptions)
     // should get list of libraries from parent (LibraryTable)
     // form with fields: Title, Author, Owner, Library(dropdown), Current Location, Notes
     const [ title, titleOnChange ] = useInput('');
@@ -56,7 +55,7 @@ const AddBook = (props) => {
 
     return(
         <section className='addBookSection'>
-            <h3>Add a book:</h3>
+            <h4 className="addBookHeader">Add a book:</h4>
             <section className="addBookForm">
             <span className='addBookField'>
                 <label htmlFor="Title">Title: </label>
