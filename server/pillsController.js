@@ -98,4 +98,9 @@ pillsController.requestBook = (req, res, next) => {
 
 }
 
+pillsController.getRequests = (req, res, next) => {
+    const { option, user_id, library_id } = req.query;
+    
+}
+
 module.exports = pillsController;

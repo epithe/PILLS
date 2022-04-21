@@ -20,7 +20,7 @@ h2 {
   color: olive;
   text-align: center;
   font-variant: small-caps;
-  margin-bottom: 0rem;
+  margin-bottom: 0.5rem;
 }
 
 .userSelectText {
@@ -39,12 +39,12 @@ h2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
-  max-width: 200px;
+  max-width: 300px;
   /* max-height: 20px; */
   display: inline-block;
 }
 
-.librarySelectText {
+.selectText {
   margin-top: 0rem;
   margin-bottom: 0.5rem;
   margin-left: 0.2rem;
@@ -73,7 +73,7 @@ button {
   margin: 0.5rem;
 }
 
-.library {
+.panel {
   display: grid;
   padding: 1rem 3rem;
 }

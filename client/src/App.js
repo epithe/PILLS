@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import LibraryTable from './LibraryTable'
 import Select from 'react-select';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import RequestPanel from "./Requests";
 
 
 class App extends Component {
@@ -72,7 +75,21 @@ class App extends Component {
             Podhorcer Inter-Library Loan System
           </h2>
         </div>
-        <LibraryTable libraryOptions={this.state.libraryOptions} selectedUser={this.state.selectedUser}/>
+        <Tabs>
+          <TabList>
+            <Tab>Libraries</Tab>
+            <Tab>Requests</Tab>
+            <Tab>Recommendations</Tab>
+          </TabList>
+
+          <TabPanel>
+            <LibraryTable libraryOptions={this.state.libraryOptions} selectedUser={this.state.selectedUser}/>
+        </TabPanel>
+        <TabPanel>
+            <RequestPanel selectedUser={this.state.selectedUser} />
+        </TabPanel>
+        <TabPanel>Recommendations</TabPanel>
+        </Tabs>
       </>
     );
   }

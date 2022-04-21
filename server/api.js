@@ -17,14 +17,18 @@ router.get('/', pillsController.getLibrary, (req, res) => {
 })
 
 router.post('/remove', pillsController.removeBook, (req, res) => {
-    return res.status(200)
+    return res.status(200);
 })
 
 router.post('/addbook', pillsController.addBook, (req, res) => {
-    return res.status(200)
+    return res.status(200);
 })
 
 router.post('/requestBook', pillsController.requestBook, (req, res) => {
+    return res.status(200);
+})
+
+router.get('/getRequests', pillsController.getRequests, (req, res) => {
     return res.status(200)
 })
 

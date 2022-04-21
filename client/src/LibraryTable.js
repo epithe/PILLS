@@ -145,11 +145,11 @@ class LibraryTable extends Component {
         })
 
         return (
-            <div className="library">
+            <div className="panel">
                 <span className="SelectLibrary">
-                    <h4 className="librarySelectText">Select library:</h4>
+                    <h4 className="selectText">Select library:</h4>
                     <Select 
-                        className="librarySelect"
+                        className="panelSelect"
                         value={this.state.selectedLibrary}
                         onChange={this.handleChange}
                         options={this.state.libraryOptions}
