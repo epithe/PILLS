@@ -16,13 +16,16 @@
   },
   "dependencies": {
     "nodemon": "^2.0.15",
+    "pg-hstore": "^2.3.4",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "sequelize": "^6.19.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "axios": "^0.26.1",
     "babel-loader": "^8.2.4",
     "css-loader": "^6.7.1",
     "eslint": "^8.13.0",
@@ -31,6 +34,9 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
     "path": "^0.12.7",
+    "pg": "^8.7.3",
+    "react-select": "^5.3.0",
+    "react-table": "^7.7.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",

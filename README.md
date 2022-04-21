@@ -27,7 +27,13 @@ Roadmap:
 
     Step Three: Render libraries to page (cRud)
 
-    Step Four: Complete CRUD functionality
+        Frontend should send fetch request to /api. Route goes to pillsController.getLibrary, which gets library from database, saves books to res.locals.books, and sends it back to the frontend. - DONE
+
+        Library book card styling - DONE
+
+        Drop-down library select - DONE
+
+    Step Four: Complete CRUD functionality -CR_D DONE
 
 Stretch: Req/Rec
 

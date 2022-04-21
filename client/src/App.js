@@ -1,7 +1,32 @@
+import React, { Component } from "react";
+import LibraryTable from './LibraryTable'
 
-import React from "react";
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      libraryOptions: [],
+    }
+  }
 
-class App extends React.Component {
+  componentDidMount() {
+    fetch('/api/libraries')
+      .then((res) => res.json())
+      .then((libraries) => {
+          let libraryOptionsArr = [];
+          libraries.forEach((el) => {
+              libraryOptionsArr.push({
+                  value: el['library_id'],
+                  label: el.name
+              })
+          })
+          console.log("libraryoptions", libraryOptionsArr)
+          return this.setState({
+              libraryOptions: libraryOptionsArr,
+          })
+      })
+  }
+
   render() {
     return (
       <>
@@ -11,6 +36,7 @@ class App extends React.Component {
         <h2>
           Podhorcer Inter-Library Loan System
         </h2>
+        <LibraryTable libraryOptions={this.state.libraryOptions}/>
       </>
     );
   }

@@ -31,7 +31,18 @@ const config = {
       template: 'index.html'
     }),
     new MiniCssExtractPlugin()
-  ]
+  ],
+  devServer: {
+    static: [
+      {
+        directory: path.join(__dirname, 'public'),
+        publicPath: '/build' 
+      },
+  ],
+  proxy: {
+      '/api/': 'http://localhost:3000'
+  }
+  }
 };
 
 module.exports = config;

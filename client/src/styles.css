@@ -9,3 +9,62 @@ h2 {
   text-align: center;
   font-variant: small-caps;
 }
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: georgia;
+}
+
+p {
+  margin-left: 0.75rem;
+}
+
+button {
+  border-radius: 5px;
+  background: transparent;
+  margin-left: 0.75rem;
+  background-color: olive;
+  color: white;
+}
+
+.addBookForm {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-evenly; */
+}
+
+.addBookField {
+  margin: 0.5rem;
+}
+
+.library {
+  display: grid;
+  padding: 1rem 3rem;
+}
+
+.bookCard {
+  color: rgb(15, 14, 14);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid lightgray;
+  box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
+  margin: 0.5rem 0rem 0.5rem 0rem;
+  padding: 0.5rem;
+  /* max-width: 250px; */
+}
+
+/* .addNotesField {
+  min-height: 100px;
+  min-width: 200px;
+} */
+
+.saveButton {
+  margin-top: 1rem;
+}
