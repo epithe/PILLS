@@ -76,7 +76,7 @@ button {
 
 .panel {
   display: grid;
-  padding: 1rem 3rem;
+  padding: 1rem 10rem;
 }
 
 .card {

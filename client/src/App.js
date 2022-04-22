@@ -86,13 +86,13 @@ class App extends Component {
 
           <TabPanel>
             <LibraryTable libraryOptions={this.state.libraryOptions} selectedUser={this.state.selectedUser} userOptions={userOptions} users={this.state.users}/>
-        </TabPanel>
-        <TabPanel>
-            <RequestPanel selectedUser={this.state.selectedUser} users={this.state.users}/>
-        </TabPanel>
-        <TabPanel>
-            <RecommendationsPanel selectedUser={this.state.selectedUser} users={this.state.users}/>
-        </TabPanel>
+          </TabPanel>
+          <TabPanel>
+              <RequestPanel selectedUser={this.state.selectedUser} users={this.state.users}/>
+          </TabPanel>
+          <TabPanel>
+              <RecommendationsPanel selectedUser={this.state.selectedUser} users={this.state.users}/>
+          </TabPanel>
         </Tabs>
       </>
     );
